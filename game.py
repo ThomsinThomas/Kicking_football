@@ -39,7 +39,7 @@ class GameThread(QThread):
         
         # Load assets with absolute paths
         base_path = os.path.dirname(os.path.abspath(__file__))
-        ball_path = os.path.join(base_path, 'football.png')
+        ball_path = os.path.join(base_path, 'assets/football.png')
         ball_img = cv2.imread(ball_path, cv2.IMREAD_UNCHANGED)
         
         cap = cv2.VideoCapture(0)
@@ -236,7 +236,7 @@ class FootballGameApp(QMainWindow):
             widget.resizeEvent = handle_resize
 
     def init_splash(self):
-        page = QWidget(); self.set_bg(page, "splash_screen.jpg")
+        page = QWidget(); self.set_bg(page, "assets/splash_screen.jpg")
         layout = QVBoxLayout(page); layout.addStretch()
         self.pbar = QProgressBar(); self.pbar.setFixedWidth(600)
         self.pbar.setStyleSheet("QProgressBar { border: 2px solid white; border-radius: 10px; text-align: center; color: white; height: 30px; } QProgressBar::chunk { background-color: #00FF00; }")
@@ -251,7 +251,7 @@ class FootballGameApp(QMainWindow):
         if self.val >= 100: self.timer.stop(); self.stack.setCurrentIndex(1)
 
     def init_instructions(self):
-        page = QWidget(); self.set_bg(page, "background.jpg")
+        page = QWidget(); self.set_bg(page, "assets/background.jpg")
         layout = QVBoxLayout(page)
         q_row = QHBoxLayout(); q_row.addStretch()
         q_btn = QPushButton("QUIT"); q_btn.setStyleSheet("background: red; color: white; font-weight: bold; font-size: 24px; padding: 10px 40px;")
@@ -278,7 +278,7 @@ class FootballGameApp(QMainWindow):
         if self.duration > 2: self.duration -= 1; self.time_lbl.setText(f"{self.duration} MIN")
 
     def init_level_selector(self):
-        page = QWidget(); self.set_bg(page, "background.jpg")
+        page = QWidget(); self.set_bg(page, "assets/background.jpg")
         layout = QVBoxLayout(page); top = QHBoxLayout()
         back = QPushButton("← BACK"); back.setStyleSheet("font-size: 25px; color: white; background: transparent; border: 2px solid white; padding: 10px;")
         back.clicked.connect(lambda: self.stack.setCurrentIndex(1)); top.addWidget(back); top.addStretch()
@@ -324,7 +324,7 @@ class FootballGameApp(QMainWindow):
         if hasattr(self, 'thread'): self.thread.stop()
 
     def init_summary(self):
-        self.sum_page = QWidget(); self.set_bg(self.sum_page, "background.jpg")
+        self.sum_page = QWidget(); self.set_bg(self.sum_page, "assets/background.jpg")
         self.sum_layout = QVBoxLayout(self.sum_page); self.stack.addWidget(self.sum_page)
 
     def show_summary(self, data):
