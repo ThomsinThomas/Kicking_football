@@ -280,8 +280,20 @@ class FootballGameApp(QMainWindow):
         self.game_page = QWidget(); layout = QVBoxLayout(self.game_page); layout.setContentsMargins(0,0,0,0)
         self.video_full = QLabel(); self.video_full.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
-        # HUD ELEMENTS
-        self.hud_box = QFrame(self.video_full); self.hud_box.setGeometry(40, 40, 400, 200)
+        # New Quit Button (Top Left)
+        self.game_quit_btn = QPushButton("QUIT", self.video_full); self.game_quit_btn.setGeometry(40, 40, 160, 70)
+        self.game_quit_btn.setStyleSheet("""
+            background: rgba(211, 47, 47, 200); 
+            color: white; 
+            font-weight: bold; 
+            font-size: 24px; 
+            border-radius: 12px;
+            border: 2px solid white;
+        """)
+        self.game_quit_btn.clicked.connect(self.end_session_manually)
+
+        # HUD ELEMENTS (Shifted down slightly to avoid overlap with Quit button)
+        self.hud_box = QFrame(self.video_full); self.hud_box.setGeometry(40, 130, 400, 200)
         hud_layout = QVBoxLayout(self.hud_box)
         
         self.stats_lbl = QLabel("SCORE: 0\n0m 0s"); self.stats_lbl.setStyleSheet("color: #00FF00; font-size: 30px; font-weight: bold; background: none;")
@@ -290,7 +302,7 @@ class FootballGameApp(QMainWindow):
         hud_layout.addWidget(self.stats_lbl)
         hud_layout.addWidget(self.life_lbl)
 
-        # Floating Exit Button (Top Right)
+        # Floating Exit Button (Top Right - ends session to summary)
         self.game_exit_btn = QPushButton("EXIT", self.video_full); self.game_exit_btn.setGeometry(1700, 40, 160, 70)
         self.game_exit_btn.setStyleSheet("""
             background: rgba(211, 47, 47, 200); 
